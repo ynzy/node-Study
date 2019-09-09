@@ -21,7 +21,7 @@ app.use(bodyParser.urlencoded({ extended: false }))
 app.use(bodyParser.json())
 
 //* 配置使用art-template模板引擎
-// 第一个参数标识,当渲染以 .art 结尾的文件的时候,使用art-template模板引擎
+// 第一个参数标识,当渲染以 .html 结尾的文件的时候,使用art-template模板引擎
 // express-art-template是专门用来在express中吧art-template整合到express中
 
 app.engine('html', require('express-art-template'))

@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+
+<body>
+  <form action="" method="get" id="user_form">
+
+  </form>
+  <script src="./01-封装ajax.js"></script>
+  <script src="./jquery.min.js"></script>
+  <script src="./template-web.js"></script>
+  <script type="text/template" id="tpl">
+    <div>
+        <label for="">用户名</label>
+        <input type="text" value="{{user.username}}">
+      </div>
+      <div>
+        
+        <label for="">年龄</label>
+        <input type="text" value="{{user.age}}">
+      </div>
+      <div>
+        <label for="">职业</label>
+        <select name="" id="">
+          {{ each jobs }}
+            {{ if user.job === $value.id }}
+            <option value="{{$value.id}}" selected>{{$value.name}}</option>
+            {{else}}
+            <option value="{{$value.id}}">{{$value.name}}</option>
+            {{ /if}}
+          {{ /each}}
+        </select>
+      </div>
+  </script>
+  <script>
+    // 用户表
+    // 其中一个接口获取用户数据
+    // 职业信息表
+    // 其中一个接口获取所有职业信息
+    let data = {}
+    $.get('http://127.0.0.1:3000/users/1').then(userData => {
+      data.user = userData
+      return $.get('http://127.0.0.1:3000/jobs')
+    }).then(jobsData => {
+      data.jobs = jobsData
+      var htmlStr = template('tpl', data)
+      document.querySelector('#user_form').innerHTML = htmlStr
+    })
+
+
+    //#region 回调获取数据
+    /* get('http://127.0.0.1:3000/users/1', function (userData) {
+      get('http://127.0.0.1:3000/jobs', function (jobsData) {
+        // console.log(userData, jobsData);
+        var htmlStr = template('tpl', {
+          user: JSON.parse(userData),
+          jobs: JSON.parse(jobsData)
+        })
+        document.querySelector('#user_form').innerHTML = htmlStr
+      })
+    }) */
+    //#endregion 
+  </script>
+</body>
+
+</html>
