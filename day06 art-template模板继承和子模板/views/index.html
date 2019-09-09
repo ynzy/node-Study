@@ -1,0 +1,22 @@
+<!-- 继承layout页面 -->
+{{extend './layout.html'}}
+
+{{block 'head'}} 
+<style>
+body {
+  background: rgb(7, 150, 175);
+}
+</style>
+{{/block}}
+
+{{block 'content'}} 
+<div>
+  <h1>index 填写内容</h1>
+</div>
+{{/block}}
+
+{{block 'script'}} 
+<script>
+window.alert('自己的js')
+</script>
+{{/block}}
